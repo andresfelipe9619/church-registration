@@ -127,6 +127,9 @@ input[type=submit], #layer1 button{
     cursor: pointer;
     margin: 10px 0 20px 0;
 }
+input[type=submit]:hover{
+    background: #84b2c5;
+}
 
 #layer1{
     position: absolute;

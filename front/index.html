@@ -39,24 +39,6 @@
                             <img id="prev" src="media/profile.png" alt="Photo" />
                             <input type="file" accept="image/*" capture="camera" id="imgInp" required>
                             Subir Foto*
-                            <script>
-                                function readURL(input) {
-
-                                  if (input.files && input.files[0]) {
-                                    var reader = new FileReader();
-
-                                    reader.onload = function(e) {
-                                      $('#prev').attr('src', e.target.result);
-                                    }
-
-                                    reader.readAsDataURL(input.files[0]);
-                                  }
-                                }
-
-                                $("#imgInp").change(function() {
-                                  readURL(this);
-                                });        
-                            </script>
                         </div>
                     </td>
                 </tr>
@@ -77,7 +59,7 @@
                     <input type="text" name="twitter" value="" placeholder="Twitter"></i>
                 </td></tr>
             </table>
-            <input type="submit" value="Firmar">
+            <input type="submit" value="Firmar" onsubmit="">
         </form>
     </div>
     
