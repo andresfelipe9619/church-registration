@@ -1,0 +1,96 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+    <title>Welcome IPUL Greenville</title>
+    <meta name="slogan" content="We are glad you're here!">
+    <meta name="author" content="IPUC Greenville">
+    
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Raleway:100,400,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <video autoplay muted loop id="myVideo">
+        <source src="media/sky.mp4" type="video/mp4">
+        <source src="media/sky.webm" type="video/webm">
+        <source src="media/sky.ogv" type="video/ogg">
+    </video>
+    
+    <h1>WELCOME TO <span>CHURCH</span></h1><br>
+    <h4>WE ARE GLAD YOU'RE HERE!</h4><br>
+    
+    <div id="content">
+        <h2>Libro de Visitas</h2>
+        
+        <form method="get" enctype="application/x-www-form-urlencoded" action="">
+            <table>
+                <tr><td> 
+                        <input type="text" name="firstname" value="" placeholder="Firstname*" required> 
+                        <input type="text" name="lastname" value="" placeholder="Lastname*" required>
+                    </td>
+                    <td rowspan="3">
+                        <div id="photo">
+                            <img id="prev" src="media/profile.png" alt="Photo" />
+                            <input type="file" accept="image/*" capture="camera" id="imgInp" required>
+                            Subir Foto*
+                            <script>
+                                function readURL(input) {
+
+                                  if (input.files && input.files[0]) {
+                                    var reader = new FileReader();
+
+                                    reader.onload = function(e) {
+                                      $('#prev').attr('src', e.target.result);
+                                    }
+
+                                    reader.readAsDataURL(input.files[0]);
+                                  }
+                                }
+
+                                $("#imgInp").change(function() {
+                                  readURL(this);
+                                });        
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+                <tr><td>
+                    <input type="tel" name="tel" value="" placeholder="Cellphone*" required>
+                    <input type="email" name="email" value="" placeholder="Email*" required>                    
+                </td></tr>
+                <tr><td>
+                    <input nput type="text" name="address" value="" placeholder="Address">
+                    <input type="date" name="birddate" value="" placeholder="BirdDate" required alt="Fecha de Nacimiento"  title="Fecha de Nacimiento">                    
+                </td></tr>
+                <tr><td colspan="2" id="social">
+                    <i class="fa fa-facebook">
+                    <input type="text" name="facebook" value="" placeholder="Facebook"></i>
+                    <i class="fa fa-instagram">
+                    <input type="text" name="instagram" value="" placeholder="Instagram"></i>
+                    <i class="fa fa-twitter">
+                    <input type="text" name="twitter" value="" placeholder="Twitter"></i>
+                </td></tr>
+            </table>
+            <input type="submit" value="Firmar">
+        </form>
+    </div>
+    
+    <div id="layer1">
+        <button type="button" id="open">Abrir Libro de Visitas</button>
+        <script>
+            $('#open').click(function(){
+                $('#content').fadeIn();
+                $(this).parent().fadeOut(1000);
+                $('#myVideo').get(0).play();
+                $('body').css('overflow','auto');
+            })
+        </script>
+    </div>
+</body>
+</html>
