@@ -1,21 +1,22 @@
-body{
-    font-family: 'Raleway', sans-serif;
+<style>
+  body {
+    font-family: "Raleway", sans-serif;
     text-align: center;
     background-color: #4d2b24;
-    overflow: hidden;   
-}
-#content{
+    overflow: hidden;
+  }
+  #content {
     display: none;
-}
-body > video#myVideo {
+  }
+  body > video#myVideo {
     position: fixed;
     right: 0;
     bottom: 0;
-    min-width: 100%; 
+    min-width: 100%;
     min-height: 100%;
     z-index: -1;
-}
-body > h1{
+  }
+  body > h1 {
     width: 40%;
     display: inline-block;
     background: rgba(51, 30, 25, 0.7);
@@ -23,17 +24,17 @@ body > h1{
     padding: 20px;
     font-weight: 100;
     line-height: 1em;
-    letter-spacing: 2px; 
+    letter-spacing: 2px;
     margin-bottom: 0;
-    box-shadow: 0px 5px 15px rgba(43, 24, 17, 0.5);    
-}
-body > h1 > span{
+    box-shadow: 0px 5px 15px rgba(43, 24, 17, 0.5);
+  }
+  body > h1 > span {
     display: block;
     font-weight: 800;
     font-size: 2.2em;
-    line-height: 1em;    
-}
-body > h4{
+    line-height: 1em;
+  }
+  body > h4 {
     display: inline-block;
     width: 26%;
     background: #617983;
@@ -44,65 +45,64 @@ body > h4{
     font-size: 1.3em;
     font-weight: 100;
     color: white;
-    font-family: Raleway;    
-    
-}
-body #content{
+    font-family: Raleway;
+  }
+  body #content {
     display: inline-block;
     width: 80%;
     height: 100%;
     background: rgba(255, 255, 255, 0.5);
     margin-top: 30px;
-}
-body #content > h2{
-    font-family: 'Kaushan Script', cursive;
+  }
+  body #content > h2 {
+    font-family: "Kaushan Script", cursive;
     font-size: 2.5em;
     margin: 10px;
-}
-body #content > table{
+  }
+  body #content > table {
     width: 90%;
     text-align: center;
     margin-left: 5%;
-}
-table input{
+  }
+  table input {
     font-size: 2em;
-    font-family: 'Kaushan Script', cursive;
-}
-table #social input{
+    font-family: "Kaushan Script", cursive;
+  }
+  table #social input {
     width: 80%;
     margin: 5px 0;
     padding-left: 40px;
-}
-table #social i{
+  }
+  table #social i {
     width: 30%;
     position: relative;
-    color: #4d2b24;    
-}
-table #social i:before{
+    color: #4d2b24;
+  }
+  table #social i:before {
     position: absolute;
     font-size: 2em;
     top: 16px;
     left: 16px;
-}
+  }
 
-#photo{
+  #photo {
     position: relative;
     display: inline-block;
     width: 200px;
     height: 200px;
     border-radius: 50%;
-}
-#photo img{
+  }
+  #photo img {
     top: 0;
     left: 0;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     display: inline-block;
-    background-color: rgba(100, 100, 100, 0.6);    
+    background-color: rgba(100, 100, 100, 0.6);
     z-index: -1;
-}
-#photo input{
+  }
+  #photo input {
     display: inline-block;
     position: absolute;
     top: 0;
@@ -112,9 +112,10 @@ table #social i:before{
     cursor: pointer;
     opacity: 0;
     z-index: 2;
-}
+  }
 
-input[type=submit], #layer1 button{
+  #submit-btn,
+  #layer1 button {
     display: inline-block;
     width: 100px;
     background: #617983;
@@ -122,71 +123,67 @@ input[type=submit], #layer1 button{
     font-size: 1.3em;
     font-weight: 100;
     color: white;
-    font-family: Raleway;    
+    font-family: Raleway;
     border: none;
     cursor: pointer;
     margin: 10px 0 20px 0;
-}
-input[type=submit]:hover{
+  }
+  #submit-btn:hover {
     background: #84b2c5;
-}
+  }
 
-#layer1{
+  #layer1 {
     position: absolute;
     top: 0;
     left: 0;
-    background: url(media/greenville.jpg) #102645 center center no-repeat;
+    background: url(https://drive.google.com/uc?id=1xLzv7RIiTD6VvyuI5l-aT3ls1tj8aZI_)
+      #102645 center center no-repeat;
     background-size: contain;
     width: 100%;
     height: 100%;
-}
-#layer1 button{
+  }
+  #layer1 button {
     width: 500px;
     position: absolute;
     bottom: 70px;
     left: 50%;
     margin-left: -250px;
-    font-family: 'Kaushan Script', cursive;
+    font-family: "Kaushan Script", cursive;
     font-size: 3em;
     box-shadow: 0px 5px 15px #0f0d2a;
     cursor: pointer;
-}
+  }
 
-
-/* IPAD HORIZONTAL */
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : landscape) { 
-    body > h1{
-        width: 50%;
+  /* IPAD HORIZONTAL */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    body > h1 {
+      width: 50%;
     }
-    body > h4{
-        width: 30%;
-        margin-left: -15%;
+    body > h4 {
+      width: 30%;
+      margin-left: -15%;
     }
-    body #content{
-        box-shadow: inset 0px 3px 20px #603725;
-        width: 90%;
-        margin-top: 60px;
+    body #content {
+      box-shadow: inset 0px 3px 20px #603725;
+      width: 90%;
+      margin-top: 60px;
     }
-    body #content > h2{
-        margin: 15px 0 1px 0;
+    body #content > h2 {
+      margin: 15px 0 1px 0;
     }
-    table input{
-        width: 44%;
+    table input {
+      width: 44%;
     }
-    table #social input{
-        margin-top: 10px;
+    table #social input {
+      margin-top: 10px;
     }
-    #photo{
-        margin: 0 30px 0 0;
+    #photo {
+      margin: 0 30px 0 0;
     }
-    #layer1 button{
-        bottom: 35px;
-        background: #1a325b;
-        box-shadow: 0px 3px 30px #e8ebfb;
+    #layer1 button {
+      bottom: 35px;
+      background: #1a325b;
+      box-shadow: 0px 3px 30px #e8ebfb;
     }
-    
-
-}
+  }
+</style>

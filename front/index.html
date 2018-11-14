@@ -1,78 +1,252 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
 
     <title>Welcome IPUL Greenville</title>
-    <meta name="slogan" content="We are glad you're here!">
-    <meta name="author" content="IPUC Greenville">
-    
-    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Raleway:100,400,800" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta name="slogan" content="We are glad you're here!" />
+    <meta name="author" content="IPUC Greenville" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css?family=Kaushan+Script|Raleway:100,400,800"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <?!= include('style'); ?>
+  </head>
+  <body>
     <video autoplay muted loop id="myVideo">
-        <source src="media/sky.mp4" type="video/mp4">
-        <source src="media/sky.webm" type="video/webm">
-        <source src="media/sky.ogv" type="video/ogg">
+      <source
+        src="https://drive.google.com/uc?id=18x2Wdl8ApkPpNWo8ICKgVwx6e-vpGFL_"
+        type="video/mp4"
+      />
+      <source
+        src="https://drive.google.com/uc?id=1NtRCRR_jDStYz04X0L9M3qzkYFztU9Wv"
+        type="video/webm"
+      />
+      <source
+        src="https://drive.google.com/uc?id=1oPFiqeZHLY94I6sCQM4Yh64R2Q4ypgs2"
+        type="video/ogg"
+      />
     </video>
-    
-    <h1>WELCOME TO <span>CHURCH</span></h1><br>
-    <h4>WE ARE GLAD YOU'RE HERE!</h4><br>
-    
+
+    <h1>WELCOME TO <span>CHURCH</span></h1>
+    <br />
+    <h4>WE ARE GLAD YOU'RE HERE!</h4>
+    <br />
+
     <div id="content">
-        <h2>Libro de Visitas</h2>
-        
-        <form method="get" enctype="application/x-www-form-urlencoded" action="">
-            <table>
-                <tr><td> 
-                        <input type="text" name="firstname" value="" placeholder="Firstname*" required> 
-                        <input type="text" name="lastname" value="" placeholder="Lastname*" required>
-                    </td>
-                    <td rowspan="3">
-                        <div id="photo">
-                            <img id="prev" src="media/profile.png" alt="Photo" />
-                            <input type="file" accept="image/*" capture="camera" id="imgInp" required>
-                            Subir Foto*
-                        </div>
-                    </td>
-                </tr>
-                <tr><td>
-                    <input type="tel" name="tel" value="" placeholder="Cellphone*" required>
-                    <input type="email" name="email" value="" placeholder="Email*" required>                    
-                </td></tr>
-                <tr><td>
-                    <input nput type="text" name="address" value="" placeholder="Address">
-                    <input type="date" name="birddate" value="" placeholder="BirdDate" required alt="Fecha de Nacimiento"  title="Fecha de Nacimiento">                    
-                </td></tr>
-                <tr><td colspan="2" id="social">
-                    <i class="fa fa-facebook">
-                    <input type="text" name="facebook" value="" placeholder="Facebook"></i>
-                    <i class="fa fa-instagram">
-                    <input type="text" name="instagram" value="" placeholder="Instagram"></i>
-                    <i class="fa fa-twitter">
-                    <input type="text" name="twitter" value="" placeholder="Twitter"></i>
-                </td></tr>
-            </table>
-            <input type="submit" value="Firmar" onsubmit="">
-        </form>
+      <h2>Libro de Visitas</h2>
+
+      <form  id="myform" >
+        <table>
+          <tr>
+            <td>
+              <input
+                type="text"
+                name="firstname"
+                value=""
+                placeholder="Firstname*"
+                required
+                autofocus
+              />
+              <input
+                type="text"
+                name="lastname"
+                value=""
+                placeholder="Lastname*"
+                required
+              />
+            </td>
+            <td rowspan="3">
+              <div id="photo">
+                <img
+                  id="prev"
+                  src="https://drive.google.com/uc?id=1leYORgBSOjoa6aYtWRWeG30yyiZHS520"
+                  alt="Photo"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  id="imgInp"
+                />
+                Subir Foto*
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="tel"
+                name="phone"
+                value=""
+                placeholder="Cellphone*"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                value=""
+                placeholder="Email*"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="text"
+                name="address"
+                value=""
+                placeholder="Address"
+              />
+              <input
+                type="date"
+                name="bird_date"
+                value=""
+                placeholder="BirdDate"
+                required
+                alt="Fecha de Nacimiento"
+                title="Fecha de Nacimiento"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" id="social">
+              <i class="fa fa-facebook">
+                <input
+                  type="text"
+                  name="facebook"
+                  value=""
+                  placeholder="Facebook"
+              /></i>
+
+              <i class="fa fa-instagram">
+                <input
+                  type="text"
+                  name="instagram"
+                  value=""
+                  placeholder="Instagram"
+              /></i>
+
+              <i class="fa fa-twitter">
+                <input type="text" name="twitter" value="" placeholder="Twitter"
+              /></i>
+            </td>
+          </tr>
+        </table>
+
+        <button id="submit-btn" onclick="handleSubmit()">Firmar</button>
+      </form>
     </div>
-    
+
     <div id="layer1">
-        <button type="button" id="open">Abrir Libro de Visitas</button>
-        <script>
-            $('#open').click(function(){
-                $('#content').fadeIn();
-                $(this).parent().fadeOut(1000);
-                $('#myVideo').get(0).play();
-                $('body').css('overflow','auto');
-            })
-        </script>
+      <button type="button" id="open">Abrir Libro de Visitas</button>
     </div>
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+      var personIndex, photo_url;
+
+      $("input:not([type='file'])").on("keyup", function(event) {
+        if (event.keyCode === 13) {
+          document.getElementById("submit-btn").click();
+        }
+      });
+
+      $("#open").click(function() {
+        $("#content").fadeIn();
+        $(this)
+          .parent()
+          .fadeOut(1000);
+        $("#myVideo")
+          .get(0)
+          .play();
+        $("body").css("overflow", "auto");
+      });
+
+      $("#imgInp").change(function() {
+        readURL(this);
+      });
+
+      function disableFormFielfds(bool) {
+        if (bool) {
+          $("input").prop("readonly", true);
+        } else {
+          $("input").prop("readonly", false);
+        }
+      }
+
+      function loadPersonInForm(person) {
+        console.log("Person in form", person);
+        personIndex = Number(person.index) + 1;
+        $("input[name='firstname']").val(person.data.nombres);
+        $("input[name='lastnanme']").val(person.data.apellidos);
+        $("input[name='tel']").val(person.data.telefono);
+        $("input[name='email']").val(person.data.correo);
+        $("input[name='address']").val(person.data.direccion);
+
+        // disableFormFielfds(true);
+      }
+      function registerVisitant(user) {
+        function onSuccess(result) {
+          $("#submit-btn").removeClass("loading");
+          if (result) {
+            swal("Exito!", "El Visitante ha sido registrado", "success");
+            console.log("result", result);
+            return true;
+          }
+        }
+
+        return google.script.run
+          .withSuccessHandler(onSuccess)
+          .registerVisitant(user);
+      }
+
+      function handleSubmit() {
+        try {
+          jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+          })
+          var form = $("#myform");
+          form.validate();
+          if (form.valid()) {
+            var formData = form.serializeArray();
+            formData.push({
+              name: "photo",
+              value: photo_url ? photo_url : "NO TIENE"
+            });
+            registerVisitant(formData);
+            console.log(formData);
+          } else {
+            swal("Error", "Ingrese todos los campos del formulario", "error");
+          }
+        } catch (error) {
+          console.log(error)
+          swal("Error", String(error), "error");
+        }
+      }
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $("#prev").attr("src", e.target.result);
+          };
+          photo_url = console.log("photo: ", e.target.result);
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
+  </body>
 </html>

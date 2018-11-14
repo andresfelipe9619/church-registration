@@ -1,7 +1,5 @@
 var GENERAL_DB =
-  "https://docs.google.com/spreadsheets/d/1s4fI_h4lKP8TUW_3iVTLDxZQOyXCMNUhuRhM1C7bNOA/edit?usp=sharing";
-var PROGRAMAS =
-  "https://docs.google.com/spreadsheets/d/1JBq9HT1yLVKGmpiB6fpOc6Lf0kqoZBziya0M5_dTjbo/edit?usp=sharing";
+  "https://docs.google.com/spreadsheets/d/1Mryv_mGfzTjm0eEvAx1QI0-54CelC7PuBNAq6zSicms/edit?usp=sharing";
 
 function doGet(request) {
   return HtmlService.createTemplateFromFile("index.html")
@@ -27,13 +25,6 @@ function getRawDataFromSheet(url, sheet) {
       mSheet.getLastRow(),
       mSheet.getLastColumn()
     );
-}
-
-function getPrograms() {
-  var programsSheet = getRawDataFromSheet(PROGRAMAS, "PROGRAMAS");
-  var programsObjects = sheetValuesToObject(programsSheet);
-  // logFunctionOutput(getPrograms.name, programsObjects)
-  return programsObjects;
 }
 
 function getPeopleRegistered() {
@@ -75,48 +66,6 @@ function validatePerson(cedula) {
     return result;
   }
 }
-function getFacultiesAndPrograms() {
-  var result = {
-    faculties: null,
-    programs: null
-  };
-  var programs = getPrograms();
-  var lastPrograms = [];
-  var esta = false;
-
-  for (var program in programs) {
-    for (var last in lastPrograms) {
-      if (
-        String(programs[program].nombre) === String(lastPrograms[last].nombre)
-      ) {
-        esta = true;
-        break;
-      } else {
-        esta = false;
-      }
-    }
-    if (!esta) {
-      lastPrograms.push(programs[program]);
-    }
-  }
-  result.faculties = getFacultiesFromPrograms(programs);
-  result.programs = lastPrograms;
-  //logFunctionOutput(getFacultiesAndPrograms.name, result)
-  return result;
-}
-
-function getFacultiesFromPrograms(programs) {
-  var faculties = [];
-  for (var program in programs) {
-    if (faculties.indexOf(programs[program].facultad) < 0) {
-      Logger.log("FACULTAD QUE NO ESTA");
-      Logger.log(programs[program].facultad);
-      faculties.push(programs[program].facultad);
-    }
-  }
-
-  return faculties;
-}
 
 function objectToSheetValues(object, headers) {
   var arrayValues = new Array(headers.length);
@@ -148,26 +97,22 @@ function objectToSheetValues(object, headers) {
   return arrayValues;
 }
 
-function generatePayment(index, invited) {
-  var inscritosSheet = getSheetFromSpreadSheet(GENERAL_DB, "TEST");
-  var headers = inscritosSheet.getSheetValues(
-    1,
-    1,
-    1,
-    inscritosSheet.getLastColumn()
-  )[0];
+function registerVisitant(visitant) {
+  var visitantsSheet = getSheetFromSpreadSheet(GENERAL_DB, "VISITANTES");
+  var headers = visitantsSheet.getSheetValues(1, 1, 1, visitantsSheet.getLastColumn())[0];
+  visitant.push({ name: "register_date", value: new Date() })
 
-  var pagoIndex = headers.indexOf("HORA_INGRESO");
-  Logger.log(pagoIndex);
-  Logger.log(index);
-  logFunctionOutput(
-    generatePayment.name,
-    inscritosSheet.getRange(index, pagoIndex, 1, 2).getValues()
-  );
-  inscritosSheet
-    .getRange(index + 1, pagoIndex + 1, 1, 2)
-    .setValues([[String(new Date()), invited]]);
-  return true;
+  logFunctionOutput('person', visitant)
+
+  var visitantValues = objectToSheetValues(visitant, headers)
+  var finalValues = visitantValues.map(function (value) {
+    return String(value)
+  })
+
+  visitantsSheet.appendRow(finalValues)
+  var result = { data: finalValues, ok: true }
+  logFunctionOutput(registerVisitant.name, result)
+  return result;
 }
 
 function sheetValuesToObject(sheetValues) {
@@ -189,6 +134,41 @@ function sheetValuesToObject(sheetValues) {
   // logFunctionOutput(sheetValuesToObject.name, peopleWithHeadings)
   return peopleWithHeadings;
 }
+
+function getMainFolder() {
+  var dropbox = "iglesia";
+  var mainFolder,
+    folders = DriveApp.getFoldersByName(dropbox);
+
+  if (folders.hasNext()) {
+    mainFolder = folders.next();
+  } else {
+    mainFolder = DriveApp.createFolder(dropbox);
+  }
+  return mainFolder;
+}
+
+function createStudentFolder(numdoc, data) {
+  //se crea la carpeta que va contener los arhivos actuales
+  var result = {
+    url: '',
+    file: ''
+  }
+  var mainFolder = getMainFolder();
+  var currentFolder = getCurrentFolder(numdoc, mainFolder);
+  result.url = currentFolder.getUrl();
+
+  var contentType = data.substring(5, data.indexOf(';')),
+    bytes = Utilities.base64Decode(data.substr(data.indexOf('base64,') + 7)),
+    blob = Utilities.newBlob(bytes, contentType, file);
+
+  var file = currentFolder.createFile(blob);
+  file.setDescription("Subido Por " + numdoc);
+  file.setName(numdoc + "_photo");
+  result.file = file.getName();
+  return result;
+}
+
 
 function logFunctionOutput(functionName, returnValue) {
   Logger.log("Function-------->" + functionName);
