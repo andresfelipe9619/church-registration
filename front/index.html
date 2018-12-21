@@ -1,252 +1,211 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
 
-    <title>Welcome IPUL Greenville</title>
-    <meta name="slogan" content="We are glad you're here!" />
-    <meta name="author" content="IPUC Greenville" />
+<head>
+  <meta charset="utf-8" />
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Kaushan+Script|Raleway:100,400,800"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <?!= include('style'); ?>
-  </head>
-  <body>
-    <video autoplay muted loop id="myVideo">
-      <source
-        src="https://drive.google.com/uc?id=18x2Wdl8ApkPpNWo8ICKgVwx6e-vpGFL_"
-        type="video/mp4"
-      />
-      <source
-        src="https://drive.google.com/uc?id=1NtRCRR_jDStYz04X0L9M3qzkYFztU9Wv"
-        type="video/webm"
-      />
-      <source
-        src="https://drive.google.com/uc?id=1oPFiqeZHLY94I6sCQM4Yh64R2Q4ypgs2"
-        type="video/ogg"
-      />
-    </video>
+  <title>Welcome IPUL Greenville</title>
+  <meta name="slogan" content="We are glad you're here!" />
+  <meta name="author" content="IPUC Greenville" />
 
-    <h1>WELCOME TO <span>CHURCH</span></h1>
-    <br />
-    <h4>WE ARE GLAD YOU'RE HERE!</h4>
-    <br />
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Raleway:100,400,800" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <?!= include('style'); ?>
+  <script>
+    // Prevent forms from submitting.
+    function preventFormSubmit() {
+      var forms = document.querySelectorAll('form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('submit', function (event) {
+          event.preventDefault();
+        });
+      }
+    }
+    window.addEventListener('load', preventFormSubmit);
 
-    <div id="content">
-      <h2>Libro de Visitas</h2>
+  </script>
+</head>
 
-      <form  id="myform" >
-        <table>
-          <tr>
-            <td>
-              <input
-                type="text"
-                name="firstname"
-                value=""
-                placeholder="Firstname*"
-                required
-                autofocus
-              />
-              <input
-                type="text"
-                name="lastname"
-                value=""
-                placeholder="Lastname*"
-                required
-              />
-            </td>
-            <td rowspan="3">
-              <div id="photo">
-                <img
-                  id="prev"
-                  src="https://drive.google.com/uc?id=1leYORgBSOjoa6aYtWRWeG30yyiZHS520"
-                  alt="Photo"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  capture="camera"
-                  id="imgInp"
-                />
-                Subir Foto*
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                type="tel"
-                name="phone"
-                value=""
-                placeholder="Cellphone*"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                value=""
-                placeholder="Email*"
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                type="text"
-                name="address"
-                value=""
-                placeholder="Address"
-              />
-              <input
-                type="date"
-                name="bird_date"
-                value=""
-                placeholder="BirdDate"
-                required
-                alt="Fecha de Nacimiento"
-                title="Fecha de Nacimiento"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" id="social">
-              <i class="fa fa-facebook">
-                <input
-                  type="text"
-                  name="facebook"
-                  value=""
-                  placeholder="Facebook"
-              /></i>
+<body>
+  <video autoplay muted loop id="myVideo">
+    <source src="https://drive.google.com/uc?id=18x2Wdl8ApkPpNWo8ICKgVwx6e-vpGFL_" type="video/mp4" />
+    <source src="https://drive.google.com/uc?id=1NtRCRR_jDStYz04X0L9M3qzkYFztU9Wv" type="video/webm" />
+    <source src="https://drive.google.com/uc?id=1oPFiqeZHLY94I6sCQM4Yh64R2Q4ypgs2" type="video/ogg" />
+  </video>
 
-              <i class="fa fa-instagram">
-                <input
-                  type="text"
-                  name="instagram"
-                  value=""
-                  placeholder="Instagram"
-              /></i>
+  <h1>WELCOME TO <span>CHURCH</span></h1>
+  <br />
+  <h4>WE ARE GLAD YOU'RE HERE!</h4>
+  <br />
 
-              <i class="fa fa-twitter">
-                <input type="text" name="twitter" value="" placeholder="Twitter"
-              /></i>
-            </td>
-          </tr>
-        </table>
+  <div id="content">
+    <h2>Libro de Visitas</h2>
+    <div id="output"></div>
 
-        <button id="submit-btn" onclick="handleSubmit()">Firmar</button>
-      </form>
-    </div>
+    <form id="myform" onsubmit="handleFormSubmit(this)">
+      <table>
+        <tr>
+          <td>
+            <input type="text" name="firstname" value="" placeholder="Firstname*" required autofocus />
+            <input type="text" name="lastname" value="" placeholder="Lastname*" required />
+          </td>
+          <td rowspan="3">
+            <div id="photo-div">
+              <img id="prev" src="https://drive.google.com/uc?id=1leYORgBSOjoa6aYtWRWeG30yyiZHS520" alt="Photo" />
+              <input type="file" accept="image/*" capture="camera" name="photo" id="photo" required />
+              Subir Foto*
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="tel" name="phone" value="" placeholder="Cellphone*" required />
+            <input type="email" name="email" value="" placeholder="Email*" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" name="address" value="" placeholder="Address" />
+            <input type="date" name="bird_date" value="" placeholder="BirdDate" required alt="Fecha de Nacimiento"
+              title="Fecha de Nacimiento" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" id="social">
+            <i class="fa fa-facebook">
+              <input type="text" name="facebook" value="" placeholder="Facebook" /></i>
 
-    <div id="layer1">
-      <button type="button" id="open">Abrir Libro de Visitas</button>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <i class="fa fa-instagram">
+              <input type="text" name="instagram" value="" placeholder="Instagram" /></i>
 
-    <script>
-      var personIndex, photo_url;
+            <i class="fa fa-twitter">
+              <input type="text" name="twitter" value="" placeholder="Twitter" /></i>
+          </td>
+        </tr>
+      </table>
 
-      $("input:not([type='file'])").on("keyup", function(event) {
-        if (event.keyCode === 13) {
-          document.getElementById("submit-btn").click();
-        }
-      });
+      <button type="submit" id="submit-btn">Firmar</button>
+    </form>
+  </div>
 
-      $("#open").click(function() {
-        $("#content").fadeIn();
-        $(this)
-          .parent()
-          .fadeOut(1000);
-        $("#myVideo")
-          .get(0)
-          .play();
-        $("body").css("overflow", "auto");
-      });
+  <div id="layer1">
+    <button type="button" id="open">Abrir Libro de Visitas</button>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-      $("#imgInp").change(function() {
-        readURL(this);
-      });
+  <script>
+    var personIndex, photo_url;
 
-      function disableFormFielfds(bool) {
-        if (bool) {
-          $("input").prop("readonly", true);
-        } else {
-          $("input").prop("readonly", false);
+    $("input:not([type='file'])").on("keyup", function (event) {
+      if (event.keyCode === 13) {
+        document.getElementById("submit-btn").click();
+      }
+    });
+
+    $("input[name='email']").focusout(handleFocusOut);
+
+    $("#open").click(function () {
+      $("#content").fadeIn();
+      $(this)
+        .parent()
+        .fadeOut(1000);
+      $("#myVideo")
+        .get(0)
+        .play();
+      $("body").css("overflow", "auto");
+    });
+
+    $("#photo").change(function () {
+      readURL(this);
+    });
+
+    function disableFormFielfds(bool) {
+      if (bool) {
+        $("input").prop("readonly", true);
+      } else {
+        $("input").prop("readonly", false);
+      }
+    }
+
+    function handleFocusOut(event) {
+      var mEmail = $("input[name='email']").val();
+
+      function onSuccess(result) {
+        console.log(result);
+
+        if (result) {
+          swal(
+            "Alerta!",
+            "Este correo ya ha sido registrado, por favor verifique que es correcto",
+            "warning"
+          );
         }
       }
 
-      function loadPersonInForm(person) {
-        console.log("Person in form", person);
-        personIndex = Number(person.index) + 1;
-        $("input[name='firstname']").val(person.data.nombres);
-        $("input[name='lastnanme']").val(person.data.apellidos);
-        $("input[name='tel']").val(person.data.telefono);
-        $("input[name='email']").val(person.data.correo);
-        $("input[name='address']").val(person.data.direccion);
+      google.script.run
+        .withSuccessHandler(onSuccess)
+        .validatePerson(mEmail);
+    }
 
-        // disableFormFielfds(true);
+    function formSucced() {
+      $("#myform").css("cursor", "default");
+      $("#submit-btn").html("Firmar");
+      $("#submit-btn").prop("disabled", false);
+      swal(
+        "Exito!",
+        "Su registro ha sido guardado correctamente, Bienvenido!",
+        "success"
+      );
+      $("#myform").trigger("reset");
+      $("#prev").attr(
+        "src",
+        "https://drive.google.com/uc?id=1leYORgBSOjoa6aYtWRWeG30yyiZHS520"
+      );
+    }
+    
+    function handleFormSubmit(formObject) {
+      try {
+        var form = $("#myform");
+        $("#submit-btn").prop("disabled", true);
+        form.css("cursor", "wait");
+        $("#submit-btn").html("Guardando ...");
+        $("#submit-btn").prop("disabled", false);
+
+        registerVisitant(formObject)
+      } catch (error) {
+        console.log(error);
+        swal("Error", String(error), "error");
       }
-      function registerVisitant(user) {
-        function onSuccess(result) {
-          $("#submit-btn").removeClass("loading");
-          if (result) {
-            swal("Exito!", "El Visitante ha sido registrado", "success");
-            console.log("result", result);
-            return true;
-          }
-        }
-
-        return google.script.run
-          .withSuccessHandler(onSuccess)
-          .registerVisitant(user);
-      }
-
-      function handleSubmit() {
-        try {
-          jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-          })
-          var form = $("#myform");
-          form.validate();
-          if (form.valid()) {
-            var formData = form.serializeArray();
-            formData.push({
-              name: "photo",
-              value: photo_url ? photo_url : "NO TIENE"
-            });
-            registerVisitant(formData);
-            console.log(formData);
-          } else {
-            swal("Error", "Ingrese todos los campos del formulario", "error");
-          }
-        } catch (error) {
-          console.log(error)
-          swal("Error", String(error), "error");
+    }
+    
+    function registerVisitant(user) {
+      function onSuccess(result) {
+        console.log("result", result);
+        if (result) {
+          formSucced();
+          return true;
         }
       }
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
+      return google.script.run
+        .withSuccessHandler(onSuccess)
+        .registerVisitant(user);
+    }
 
-          reader.onload = function(e) {
-            $("#prev").attr("src", e.target.result);
-          };
-          photo_url = console.log("photo: ", e.target.result);
-
-          reader.readAsDataURL(input.files[0]);
-        }
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+        reader.onloadend = function (e) {
+          $("#prev").attr("src", e.target.result);
+        };
       }
-    </script>
-  </body>
+    }
+
+  </script>
+</body>
+
 </html>

@@ -28,7 +28,7 @@ function getRawDataFromSheet(url, sheet) {
 }
 
 function getPeopleRegistered() {
-  var peopleSheet = getRawDataFromSheet(GENERAL_DB, "TEST");
+  var peopleSheet = getRawDataFromSheet(GENERAL_DB, "VISITANTES");
   var peopleObjects = sheetValuesToObject(peopleSheet);
   // logFunctionOutput(getPeopleRegistered.name, peopleObjects)
   return peopleObjects;
@@ -77,17 +77,17 @@ function objectToSheetValues(object, headers) {
   Logger.log(lowerHeaders);
   Logger.log("OBJECT");
   Logger.log(object);
-  for (var item in object) {
+  for (var property in object) {
     for (var header in lowerHeaders) {
-      if (String(object[item].name) == String(lowerHeaders[header])) {
+      if (String(property) == String(lowerHeaders[header])) {
         if (
-          object[item].name == "nombres" ||
-          object[item].name == "apellidos"
+          property == "nombres" ||
+          property == "apellidos"
         ) {
-          arrayValues[header] = object[item].value.toUpperCase();
+          arrayValues[header] = object[property].toUpperCase();
           Logger.log(arrayValues);
         } else {
-          arrayValues[header] = object[item].value;
+          arrayValues[header] = object[property];
           Logger.log(arrayValues);
         }
       }
@@ -100,16 +100,16 @@ function objectToSheetValues(object, headers) {
 function registerVisitant(visitant) {
   var visitantsSheet = getSheetFromSpreadSheet(GENERAL_DB, "VISITANTES");
   var headers = visitantsSheet.getSheetValues(1, 1, 1, visitantsSheet.getLastColumn())[0];
-  visitant.push({ name: "register_date", value: new Date() })
-
+  visitant["register_date"] =  new Date(); 
   logFunctionOutput('person', visitant)
 
   var visitantValues = objectToSheetValues(visitant, headers)
   var finalValues = visitantValues.map(function (value) {
     return String(value)
   })
-
+  createStudentFolder(visitant.photo)
   visitantsSheet.appendRow(finalValues)
+  visitantsSheet.insertImage(visitant.photo, visitantsSheet.getLastRow(), getLastColumn())
   var result = { data: finalValues, ok: true }
   logFunctionOutput(registerVisitant.name, result)
   return result;
@@ -158,11 +158,11 @@ function createStudentFolder(numdoc, data) {
   var currentFolder = getCurrentFolder(numdoc, mainFolder);
   result.url = currentFolder.getUrl();
 
-  var contentType = data.substring(5, data.indexOf(';')),
-    bytes = Utilities.base64Decode(data.substr(data.indexOf('base64,') + 7)),
-    blob = Utilities.newBlob(bytes, contentType, file);
+  // var contentType = data.substring(5, data.indexOf(';')),
+  //   bytes = Utilities.base64Decode(data.substr(data.indexOf('base64,') + 7)),
+  //   blob = Utilities.newBlob(bytes, contentType, file);
 
-  var file = currentFolder.createFile(blob);
+  var file = currentFolder.createFile(data);
   file.setDescription("Subido Por " + numdoc);
   file.setName(numdoc + "_photo");
   result.file = file.getName();
