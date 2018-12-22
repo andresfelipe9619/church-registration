@@ -5,10 +5,12 @@
     background-color: #4d2b24;
     overflow: hidden;
   }
+
   #content {
     display: none;
   }
-  body > video#myVideo {
+
+  body>video#myVideo {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -16,7 +18,8 @@
     min-height: 100%;
     z-index: -1;
   }
-  body > h1 {
+
+  body>h1 {
     width: 40%;
     display: inline-block;
     background: rgba(51, 30, 25, 0.7);
@@ -28,13 +31,15 @@
     margin-bottom: 0;
     box-shadow: 0px 5px 15px rgba(43, 24, 17, 0.5);
   }
-  body > h1 > span {
+
+  body>h1>span {
     display: block;
     font-weight: 800;
     font-size: 2.2em;
     line-height: 1em;
   }
-  body > h4 {
+
+  body>h4 {
     display: inline-block;
     width: 26%;
     background: #617983;
@@ -47,6 +52,7 @@
     color: white;
     font-family: Raleway;
   }
+
   body #content {
     display: inline-block;
     width: 80%;
@@ -54,30 +60,36 @@
     background: rgba(255, 255, 255, 0.5);
     margin-top: 30px;
   }
-  body #content > h2 {
+
+  body #content>h2 {
     font-family: "Kaushan Script", cursive;
     font-size: 2.5em;
     margin: 10px;
   }
-  body #content > table {
+
+  body #content>table {
     width: 90%;
     text-align: center;
     margin-left: 5%;
   }
+
   table input {
     font-size: 2em;
     font-family: "Kaushan Script", cursive;
   }
+
   table #social input {
     width: 80%;
     margin: 5px 0;
     padding-left: 40px;
   }
+
   table #social i {
     width: 30%;
     position: relative;
     color: #4d2b24;
   }
+
   table #social i:before {
     position: absolute;
     font-size: 2em;
@@ -92,6 +104,7 @@
     height: 200px;
     border-radius: 50%;
   }
+
   #photo-div img {
     top: 0;
     left: 0;
@@ -102,6 +115,7 @@
     background-color: rgba(100, 100, 100, 0.6);
     z-index: -1;
   }
+
   #photo-div input {
     display: inline-block;
     position: absolute;
@@ -117,7 +131,7 @@
   #submit-btn,
   #layer1 button {
     display: inline-block;
-    width: 100px;
+    width: 130px;
     background: #617983;
     padding: 10px;
     font-size: 1.3em;
@@ -128,6 +142,7 @@
     cursor: pointer;
     margin: 10px 0 20px 0;
   }
+
   #submit-btn:hover {
     background: #84b2c5;
   }
@@ -136,12 +151,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: url(https://drive.google.com/uc?id=1xLzv7RIiTD6VvyuI5l-aT3ls1tj8aZI_)
-      #102645 center center no-repeat;
+    background: url(https://drive.google.com/uc?id=1xLzv7RIiTD6VvyuI5l-aT3ls1tj8aZI_) #102645 center center no-repeat;
     background-size: contain;
     width: 100%;
     height: 100%;
   }
+
   #layer1 button {
     width: 500px;
     position: absolute;
@@ -156,30 +171,37 @@
 
   /* IPAD HORIZONTAL */
   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-    body > h1 {
+    body>h1 {
       width: 50%;
     }
-    body > h4 {
+
+    body>h4 {
       width: 30%;
       margin-left: -15%;
     }
+
     body #content {
       box-shadow: inset 0px 3px 20px #603725;
       width: 90%;
       margin-top: 60px;
     }
-    body #content > h2 {
+
+    body #content>h2 {
       margin: 15px 0 1px 0;
     }
+
     table input {
       width: 44%;
     }
+
     table #social input {
       margin-top: 10px;
     }
+
     #photo-div {
       margin: 0 30px 0 0;
     }
+
     #layer1 button {
       bottom: 35px;
       background: #1a325b;

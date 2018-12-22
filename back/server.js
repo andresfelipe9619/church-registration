@@ -1,3 +1,4 @@
+var ROOT_FOLDER = "IGLESIA";
 var GENERAL_DB =
   "https://docs.google.com/spreadsheets/d/1Mryv_mGfzTjm0eEvAx1QI0-54CelC7PuBNAq6zSicms/edit?usp=sharing";
 
@@ -40,7 +41,7 @@ function searchPerson(cedula) {
   return person;
 }
 
-function validatePerson(cedula) {
+function validatePerson(email) {
   var inscritos = getPeopleRegistered();
   // var res = ""
   var result = {
@@ -50,7 +51,7 @@ function validatePerson(cedula) {
   };
 
   for (var person in inscritos) {
-    if (String(inscritos[person].cedula) === String(cedula)) {
+    if (String(inscritos[person].email) === String(email)) {
       result.isRegistered = true;
       result.index = person;
       result.data = inscritos[person];
@@ -58,18 +59,15 @@ function validatePerson(cedula) {
   }
 
   logFunctionOutput(validatePerson.name, result);
-
-  if (result.index > -1) {
-    return result;
-  } else {
+  if (result.index < 0) {
     result.isRegistered = false;
-    return result;
   }
+  return JSON.stringify(result)
 }
 
 function objectToSheetValues(object, headers) {
   var arrayValues = new Array(headers.length);
-  var lowerHeaders = headers.map(function(item) {
+  var lowerHeaders = headers.map(function (item) {
     return item.toLowerCase();
   });
 
@@ -100,16 +98,28 @@ function objectToSheetValues(object, headers) {
 function registerVisitant(visitant) {
   var visitantsSheet = getSheetFromSpreadSheet(GENERAL_DB, "VISITANTES");
   var headers = visitantsSheet.getSheetValues(1, 1, 1, visitantsSheet.getLastColumn())[0];
-  visitant["register_date"] =  new Date(); 
+  visitant["register_date"] = new Date();
   logFunctionOutput('person', visitant)
 
+  var folder = createPersonFolder(visitant.email, visitant.photo)
+  // visitant.photo = folder.url
+  visitant.firstname = visitant.firstname.toUpperCase()
+  visitant.lastname = visitant.lastname.toUpperCase()
   var visitantValues = objectToSheetValues(visitant, headers)
+
   var finalValues = visitantValues.map(function (value) {
     return String(value)
   })
-  createStudentFolder(visitant.photo)
-  visitantsSheet.appendRow(finalValues)
-  visitantsSheet.insertImage(visitant.photo, visitantsSheet.getLastRow(), getLastColumn())
+  finalValues.pop()
+  visitantsSheet.appendRow(finalValues);
+  var imageCell = visitantsSheet.insertImage(
+    visitant.photo,
+    visitantsSheet.getLastColumn(),
+    visitantsSheet.getLastRow()
+  )
+   
+  resizeImg(imageCell, 60)
+
   var result = { data: finalValues, ok: true }
   logFunctionOutput(registerVisitant.name, result)
   return result;
@@ -121,10 +131,10 @@ function sheetValuesToObject(sheetValues) {
   var peopleWithHeadings = addHeadings(people, headings);
 
   function addHeadings(people, headings) {
-    return people.map(function(personAsArray) {
+    return people.map(function (personAsArray) {
       var personAsObj = {};
 
-      headings.forEach(function(heading, i) {
+      headings.forEach(function (heading, i) {
         personAsObj[heading] = personAsArray[i];
       });
 
@@ -135,8 +145,31 @@ function sheetValuesToObject(sheetValues) {
   return peopleWithHeadings;
 }
 
+function getPersonFolder(name, mainFolder) {
+  //se crea la carpeta que va conener todos los docmuentos
+  var nameFolder = "fotos";
+  var FolderFiles,
+    folders = mainFolder.getFoldersByName(nameFolder);
+  if (folders.hasNext()) {
+    FolderFiles = folders.next();
+  } else {
+    FolderFiles = mainFolder.createFolder(nameFolder);
+  }
+
+  // se crea la carpeta que va contener los documentos de cada inscrito
+  // var currentFolder,
+  //   folders = FolderFiles.getFoldersByName(name);
+  // if (folders.hasNext()) {
+  //   currentFolder = folders.next();
+  // } else {
+  //   currentFolder = FolderFiles.createFolder(name);
+  // }
+
+  return FolderFiles;
+}
+
 function getMainFolder() {
-  var dropbox = "iglesia";
+  var dropbox = ROOT_FOLDER;
   var mainFolder,
     folders = DriveApp.getFoldersByName(dropbox);
 
@@ -148,27 +181,34 @@ function getMainFolder() {
   return mainFolder;
 }
 
-function createStudentFolder(numdoc, data) {
+function createPersonFolder(numdoc, data) {
   //se crea la carpeta que va contener los arhivos actuales
   var result = {
-    url: '',
-    file: ''
-  }
+    url: "",
+    file: ""
+  };
   var mainFolder = getMainFolder();
-  var currentFolder = getCurrentFolder(numdoc, mainFolder);
-  result.url = currentFolder.getUrl();
+  var currentFolder = getPersonFolder(numdoc, mainFolder);
 
-  // var contentType = data.substring(5, data.indexOf(';')),
-  //   bytes = Utilities.base64Decode(data.substr(data.indexOf('base64,') + 7)),
+  // var contentType = data.substring(5, data.indexOf(";")),
+  //   bytes = Utilities.base64Decode(data.substr(data.indexOf("base64,") + 7)),
   //   blob = Utilities.newBlob(bytes, contentType, file);
 
   var file = currentFolder.createFile(data);
   file.setDescription("Subido Por " + numdoc);
-  file.setName(numdoc + "_photo");
+  file.setName(numdoc);
+  result.url = file.getUrl();
   result.file = file.getName();
   return result;
 }
 
+function resizeImg(img, targetHeight) {
+  var height = img.getHeight();
+  var width = img.getWidth();
+  var factor = height / targetHeight;
+  img.setHeight(height / factor);
+  img.setWidth(width / factor);
+};
 
 function logFunctionOutput(functionName, returnValue) {
   Logger.log("Function-------->" + functionName);

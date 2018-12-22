@@ -60,8 +60,9 @@
         </tr>
         <tr>
           <td>
-            <input type="tel" name="phone" value="" placeholder="Cellphone*" required />
-            <input type="email" name="email" value="" placeholder="Email*" required />
+            <input type="tel" name="phone" value="" class="numeric" placeholder="Cellphone*" required />
+            <input type="email" name="email" value="" placeholder="Email*"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+            required />
           </td>
         </tr>
         <tr>
@@ -93,8 +94,6 @@
     <button type="button" id="open">Abrir Libro de Visitas</button>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <script>
@@ -104,6 +103,14 @@
       if (event.keyCode === 13) {
         document.getElementById("submit-btn").click();
       }
+    });
+    $(".numeric").on("keypress", function(e) {
+      return (
+        e.metaKey || // cmd/ctrl
+        e.which <= 0 || // arrow keys
+        e.which == 8 || // delete key
+        /[0-9]/.test(String.fromCharCode(e.which))
+      ); // numbers
     });
 
     $("input[name='email']").focusout(handleFocusOut);
@@ -136,8 +143,8 @@
 
       function onSuccess(result) {
         console.log(result);
-
-        if (result) {
+        var person = JSON.parse(result)
+        if (person.isRegistered) {
           swal(
             "Alerta!",
             "Este correo ya ha sido registrado, por favor verifique que es correcto",
@@ -166,13 +173,13 @@
         "https://drive.google.com/uc?id=1leYORgBSOjoa6aYtWRWeG30yyiZHS520"
       );
     }
-    
+
     function handleFormSubmit(formObject) {
       try {
         var form = $("#myform");
         $("#submit-btn").prop("disabled", true);
         form.css("cursor", "wait");
-        $("#submit-btn").html("Guardando ...");
+        $("#submit-btn").html("Guardando");
         $("#submit-btn").prop("disabled", false);
 
         registerVisitant(formObject)
@@ -181,7 +188,7 @@
         swal("Error", String(error), "error");
       }
     }
-    
+
     function registerVisitant(user) {
       function onSuccess(result) {
         console.log("result", result);
