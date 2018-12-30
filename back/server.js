@@ -71,10 +71,6 @@ function objectToSheetValues(object, headers) {
     return item.toLowerCase();
   });
 
-  Logger.log("HEADERS");
-  Logger.log(lowerHeaders);
-  Logger.log("OBJECT");
-  Logger.log(object);
   for (var property in object) {
     for (var header in lowerHeaders) {
       if (String(property) == String(lowerHeaders[header])) {
@@ -83,10 +79,8 @@ function objectToSheetValues(object, headers) {
           property == "apellidos"
         ) {
           arrayValues[header] = object[property].toUpperCase();
-          Logger.log(arrayValues);
         } else {
           arrayValues[header] = object[property];
-          Logger.log(arrayValues);
         }
       }
     }
@@ -102,7 +96,7 @@ function registerVisitant(visitant) {
   logFunctionOutput('person', visitant)
 
   var folder = createPersonFolder(visitant.email, visitant.photo)
-  // visitant.photo = folder.url
+  visitant.photo = folder.url
   visitant.firstname = visitant.firstname.toUpperCase()
   visitant.lastname = visitant.lastname.toUpperCase()
   var visitantValues = objectToSheetValues(visitant, headers)
@@ -110,18 +104,21 @@ function registerVisitant(visitant) {
   var finalValues = visitantValues.map(function (value) {
     return String(value)
   })
-  finalValues.pop()
+  // finalValues.pop()
+  Logger.log('FINAL VALUES===>', finalValues);
   visitantsSheet.appendRow(finalValues);
-  var imageCell = visitantsSheet.insertImage(
-    visitant.photo,
-    visitantsSheet.getLastColumn(),
-    visitantsSheet.getLastRow()
-  )
+  // var imageCell = visitantsSheet.insertImage(
+  //   visitant.photo,
+  //   visitantsSheet.getLastColumn(),
+  //   visitantsSheet.getLastRow()
+  // )
    
-  resizeImg(imageCell, 60)
+  // resizeImg(imageCell, 60)
 
   var result = { data: finalValues, ok: true }
-  logFunctionOutput(registerVisitant.name, result)
+  Logger.log('FINAL VALUES===>', result);
+
+  // logFunctionOutput(registerVisitant.name, result)
   return result;
 }
 
@@ -145,7 +142,7 @@ function sheetValuesToObject(sheetValues) {
   return peopleWithHeadings;
 }
 
-function getPersonFolder(name, mainFolder) {
+function getPersonFolder(mainFolder) {
   //se crea la carpeta que va conener todos los docmuentos
   var nameFolder = "fotos";
   var FolderFiles,
@@ -155,16 +152,6 @@ function getPersonFolder(name, mainFolder) {
   } else {
     FolderFiles = mainFolder.createFolder(nameFolder);
   }
-
-  // se crea la carpeta que va contener los documentos de cada inscrito
-  // var currentFolder,
-  //   folders = FolderFiles.getFoldersByName(name);
-  // if (folders.hasNext()) {
-  //   currentFolder = folders.next();
-  // } else {
-  //   currentFolder = FolderFiles.createFolder(name);
-  // }
-
   return FolderFiles;
 }
 
@@ -188,11 +175,7 @@ function createPersonFolder(numdoc, data) {
     file: ""
   };
   var mainFolder = getMainFolder();
-  var currentFolder = getPersonFolder(numdoc, mainFolder);
-
-  // var contentType = data.substring(5, data.indexOf(";")),
-  //   bytes = Utilities.base64Decode(data.substr(data.indexOf("base64,") + 7)),
-  //   blob = Utilities.newBlob(bytes, contentType, file);
+  var currentFolder = getPersonFolder(mainFolder);
 
   var file = currentFolder.createFile(data);
   file.setDescription("Subido Por " + numdoc);
