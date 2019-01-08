@@ -104,16 +104,16 @@ function registerVisitant(visitant) {
   var finalValues = visitantValues.map(function (value) {
     return String(value)
   })
-  // finalValues.pop()
+   finalValues.pop()
   Logger.log('FINAL VALUES===>', finalValues);
   visitantsSheet.appendRow(finalValues);
-  // var imageCell = visitantsSheet.insertImage(
-  //   visitant.photo,
-  //   visitantsSheet.getLastColumn(),
-  //   visitantsSheet.getLastRow()
-  // )
+   var imageCell = visitantsSheet.insertImage(
+     visitant.photo,
+     visitantsSheet.getLastColumn(),
+     visitantsSheet.getLastRow()
+   )
    
-  // resizeImg(imageCell, 60)
+   resizeImg(imageCell, 60)
 
   var result = { data: finalValues, ok: true }
   Logger.log('FINAL VALUES===>', result);
@@ -180,7 +180,7 @@ function createPersonFolder(numdoc, data) {
   var file = currentFolder.createFile(data);
   file.setDescription("Subido Por " + numdoc);
   file.setName(numdoc);
-  result.url = file.getUrl();
+  result.url = "https://docs.google.com/uc?export=download&id="+file.getId();
   result.file = file.getName();
   return result;
 }
